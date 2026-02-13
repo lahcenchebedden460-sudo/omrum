@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>ÖMRÜM Space Project</title>
+    <style>
+        body, html {
+            margin: 0; padding: 0;
+            width: 100%; height: 100vh;
+            background: black;
+            overflow: hidden;
+            display: flex; justify-content: center; align-items: center;
+        }
+
+        /* خلفية النجوم المتحركة */
+        .stars {
+            position: fixed;
+            width: 200%; height: 200%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            z-index: 1;
+            animation: move-stars 100s linear infinite;
+        }
+
+        /* الكواكب */
+        .planet {
+            position: absolute;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* صورتك المربعة في المنتصف */
+        .profile-card {
+            position: relative;
+            width: 300px; height: 300px;
+            border: 4px solid #ff0000;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.6);
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .profile-card img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: brightness(0.8);
+        }
+
+        /* كلمة ÖMRÜM الحمراء */
+        .omrum-text {
+            position: absolute;
+            z-index: 20;
+            color: #ff0000;
+            font-size: 80px;
+            font-family: 'Arial Black', sans-serif;
+            letter-spacing: 12px;
+            text-shadow: 0 0 20px #ff0000;
+            pointer-events: none;
+        }
+
+        @keyframes move-stars {
+            from { transform: translate(0, 0); }
+            to { transform: translate(-50px, -50px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars"></div>
+
+    <img src="https://pngimg.com/uploads/mars/mars_PNG24.png" class="planet" style="width:100px; top:15%; left:10%;" id="p1">
+    <img src="https://pngimg.com/uploads/earth/earth_PNG37.png" class="planet" style="width:150px; bottom:15%; right:10%;" id="p2">
+
+    <div class="profile-card">
+        <img src="https://i.ibb.co/5gZx70VP/5783109155974922521-121.jpg" alt="Profile">
+    </div>
+
+    <h1 class="omrum-text">ÖMRÜM</h1>
+
+    <script>
+        // كود تحريك العناصر مع الماوس
+        document.addEventListener('mousemove', (e) => {
+            const x = (window.innerWidth / 2 - e.clientX) / 25;
+            const y = (window.innerHeight / 2 - e.clientY) / 25;
+
+            document.getElementById('p1').style.transform = `translate(${x}px, ${y}px)`;
+            document.getElementById('p2').style.transform = `translate(${-x}px, ${-y}px)`;
+            
+            const card = document.querySelector('.profile-card');
+            card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+        });
+    </script>
+</body>
+</html>
